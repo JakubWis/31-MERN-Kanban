@@ -1,0 +1,8 @@
+/* Lane styles */
+.Lane {
+    height: 100%;
+    width: 25%;
+    background-color: #21579e;
+    padding: 20px;
+    margin: 0.5%;
+}
