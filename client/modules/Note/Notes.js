@@ -3,7 +3,7 @@ import Note from './Note';
 import Edit from '../../components/Edit';
 
 const Notes = ({ notes, laneId, editNote, updateNote, deleteNote}) => {
-    return (<ul className="notes">{notes.map(note => 
+    return (<ul className="notes">{notes.map((note) => 
         <Note
             id={note.id}
             key={note.id}

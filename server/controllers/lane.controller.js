@@ -38,7 +38,12 @@ export function deleteLane(req, res) {
     if (err) {
       res.status(500).send(err);
     }
-    lane.notes.map(notes => Note.remove({ id: notes.id }) );
+    lane.notes.forEach((notes) => {
+       Note.findOneAndRemove( { id: notes.id } )
+       .then(function() {
+        console.log('User successfully deleted');
+        });
+    });
     lane.remove(() => {
       res.status(200).end();
     });

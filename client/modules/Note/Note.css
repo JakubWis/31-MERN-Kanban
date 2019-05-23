@@ -1,1 +1,37 @@
 /* Note styles */
+.Note {
+    background-color: #fff;
+    list-style-type: none;
+    position: relative;
+    padding: 25px 0;
+    margin: 10px 0;
+}
+
+.Note>div>div {
+    width: calc(100%);
+    display: flex;
+    justify-content: center;
+}
+
+.Note span {
+    color: #000;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.Note button{
+    position: absolute;
+    font-weight: bold;
+    right: 0;
+    top: 0;
+    padding: 3px 6px;
+    background-color: rgba(188, 60, 60, 0.95);
+    border:none;
+    color: #770000;
+    cursor: pointer;
+}
+
+.Note button:hover {
+    background-color: #ad3126;
+    color: #000;
+}

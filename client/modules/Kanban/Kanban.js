@@ -4,8 +4,7 @@ import Lanes from '../Lane/Lanes';
 import styles from './Kanban.css';
 
 //actions
-import { createLane } from '../Lane/LaneActions';
-
+import { createLaneRequest, fetchLanes } from '../Lane/LaneActions';
 
 const Kanban = (props) => (
   <div>
@@ -19,16 +18,14 @@ const Kanban = (props) => (
   </div>
 );
 
-//Kanban.need = [() => { return fetchLanes(); }];
-
-
+Kanban.need = [() => { return fetchLanes(); }];
 
 const mapStateToProps = (state) => ({
-  lanes: state.lanes,
+  lanes: Object.values(state.lanes)
 });
 
 const mapDispatchToProps = {
-  createLane,
+  createLane: createLaneRequest,
 };
 
 
