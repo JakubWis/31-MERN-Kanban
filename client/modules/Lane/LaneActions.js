@@ -9,6 +9,8 @@ export const UPDATE_LANE = 'UPDATE_LANE';
 export const DELETE_LANE = 'DELETE_LANE';
 export const EDIT_LANE = 'EDIT_LANE';
 export const CREATE_LANES = 'CREATE_LANES';
+export const MOVE_BETWEEN_LANES = 'MOVE_BETWEEN_LANES';
+export const UPDATE_LANE_NOTES = 'UPDATE_LANE_NOTES';
 
 // Export Actions
 
@@ -28,8 +30,9 @@ export function createLane(lane) {
 }
 
 export function updateLaneRequest(lane) {
+  console.log(lane);
   return (dispatch) => {
-    return callApi('lanes/editName/' + lane.id, 'put', {id: lane.id, name: lane.name}).then(res => {
+    return callApi('lanes/editName/' + lane.id, 'put', {name: lane.name}).then(res => {
       dispatch(updateLane(lane))
     })
   }
@@ -60,7 +63,7 @@ export function deleteLane(laneId) {
 export function editLane(laneId) {
     return {
       type: EDIT_LANE,
-      laneId
+      id: laneId
     }
 }
 
@@ -81,4 +84,29 @@ export function fetchLanes() {
       dispatch(createNotes(notes));
     });
   };
+}
+
+export function moveBetweenLanesRequest(targetLaneId, noteId, sourceLaneId) {
+  return (dispatch) => {
+    return callApi('note/move/' +noteId, 'put', {newLaneId: targetLaneId}).then(res => {
+      dispatch(moveBetweenLanes(targetLaneId, noteId, sourceLaneId))
+    })
+  }
+}
+
+export function moveBetweenLanes(targetLaneId, noteId, sourceLaneId) {
+  return {
+    type: MOVE_BETWEEN_LANES,
+    targetLaneId,
+    noteId,
+    sourceLaneId,
+  };
+}
+
+export function updateLaneNotes(noteId, laneId) {
+  return {
+  type: UPDATE_LANE_NOTES,
+  noteId,
+  laneId
+  }
 }

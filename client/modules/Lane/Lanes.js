@@ -6,7 +6,7 @@ import styles from './Lanes.css';
 const Lanes = ({ lanes }) => {
     return (
         <div className={styles.Lanes}>
-            {lanes.map( lane => <Lane className="lane" key={lane.id} lane={lane}/> )}
+            {lanes.map( lane => <Lane key={lane.id} lane={lane}/> )}
         </div>
     );
 };

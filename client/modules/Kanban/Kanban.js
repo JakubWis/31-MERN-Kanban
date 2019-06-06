@@ -2,6 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Lanes from '../Lane/Lanes';
 import styles from './Kanban.css';
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import { compose } from 'redux';
 
 //actions
 import { createLaneRequest, fetchLanes } from '../Lane/LaneActions';
@@ -29,4 +32,7 @@ const mapDispatchToProps = {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(Kanban);
+export default compose(
+  connect(mapStateToProps, mapDispatchToProps),
+  DragDropContext(HTML5Backend)
+)(Kanban);

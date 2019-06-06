@@ -39,6 +39,15 @@ export function getNotes(req, res) {
   });
 }
 
+export function getNote(req, res) {
+  Note.find({id: req.params.noteId}).exec((err, note) => {
+    if (err) {
+      res.status(500).send(err);
+    }
+    res.json({ note });
+  });
+}
+
 export function deleteNote(req, res) {
   Note.findOneAndRemove({ id: req.params.noteId}, (err, note) => {
     if (err) {
@@ -59,4 +68,35 @@ export function editNote(req, res) {
     }
   });
   res.status(200).end();
+}
+
+export async function moveNoteToLane(req, res) {
+  try {
+    const { newLaneId } = req.body
+    let movingNote;
+
+    //inject moving note to variable
+    movingNote = await Note.findOne({ id: req.params.noteId })
+    console.log( 'movingnote = ' , movingNote )
+    
+    //deleting note
+    await Note.findOneAndRemove({ id: req.params.noteId })
+
+    //adding note
+
+    const newNote = new Note({
+      task: movingNote.task,
+    })
+    newNote.id = movingNote.id;
+    let savedNote = await newNote.save()
+    console.log( 'savedNote = ' ,savedNote )
+    let lane = await Lane.findOne({ id: newLaneId })
+      console.log( 'lane notes before =', lane.notes  )
+      lane.notes.push(savedNote);
+      console.log( 'lane notes after =', lane.notes  )
+      lane.save();
+    
+    res.status(200).end();
+  }catch(err)
+  {res.status(404).send(err)}
 }
